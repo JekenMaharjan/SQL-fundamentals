@@ -15,6 +15,7 @@ USE practice_db;
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),
+    age INT,
     email VARCHAR(100)
 );
 
@@ -31,10 +32,10 @@ CREATE TABLE tasks (
 -- =====================================================================
 
 -- 5. Insert users
-INSERT INTO users (name, email) VALUES
-('Ram', 'ram@gmail.com'),
-('Shyam', 'Shyam@gmail.com'),
-('Hari', 'Hari@gmail.com');
+INSERT INTO users (name, age, email) VALUES
+('Ram', 24, 'ram@gmail.com'),
+('Shyam', 15, 'Shyam@gmail.com'),
+('Hari', 36, 'Hari@gmail.com');
 
 -- =====================================================================
 
@@ -83,7 +84,60 @@ WHERE id = 1;
 
 -- =====================================================================
 
+-- 10. Filtering Data
 
+-- WHERE
+SELECT * FROM users
+WHERE name = 'Jeken';
+
+SELECT * FROM users
+WHERE email = 'jeken@gmail.com';
+
+SELECT * FROM tasks
+WHERE title = 'Practice Coding';
+
+SELECT * FROM tasks
+WHERE user_id = '2';
+
+-- AND, OR, NOT
+SELECT * FROM users
+WHERE age > 20 AND age < 30;
+
+SELECT * FROM users
+WHERE age < 20 OR age > 30;
+
+SELECT * FROM users
+WHERE name = 'Ram' OR name = 'Hari';
+
+SELECT * FROM users
+WHERE NOT name = 'Hari';
+
+SELECT * FROM users
+WHERE age > 20 AND NOT name = 'Ram';
+
+SELECT * FROM users
+WHERE (age > 20 AND age < 30) OR name = 'Ram';
+
+-- LIKE
+SELECT * FROM users
+WHERE name LIKE 'R%';
+-- Output: Ram
+
+SELECT * FROM users
+WHERE name LIKE 'H%';
+-- Output: Hari
+
+-- BETWEEN
+SELECT * FROM users
+WHERE age BETWEEN 10 AND 30
+AND NOT name = 'Ram';
+
+-- IN
+-- Get users whose name is Ram or Hari
+SELECT * FROM users
+WHERE name IN ('Ram', 'Hari');
+
+-- =====================================================================
 
 
 
