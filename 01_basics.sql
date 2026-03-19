@@ -258,3 +258,51 @@ FROM users
 WHERE name LIKE 'R%';
 
 -- =========================================================================================
+
+-- 13. GROUP BY & HAVING
+
+-- Count Users by Name
+SELECT name, COUNT(*) AS total
+FROM users
+GROUP BY name;
+
+-- Count Tasks per User
+SELECT user_id, COUNT(*) AS total_tasks
+FROM tasks
+GROUP BY user_id;
+
+-- GROUP BY with JOIN
+SELECT users.name, COUNT(tasks.id) AS total_tasks
+FROM users
+JOIN tasks ON users.id = tasks.user_id
+GROUP BY users.name;
+
+-- Show Only Users with More Than 1 Task
+SELECT user_id, COUNT(*) AS total_tasks
+FROM tasks
+GROUP BY user_id
+HAVING COUNT(*) > 1;
+
+-- Using JOIN + HAVING
+SELECT users.name, COUNT(tasks.id) AS total_tasks
+FROM users
+JOIN tasks ON users.id = tasks.user_id
+GROUP BY users.name
+HAVING COUNT(tasks.id) > 1;
+
+-- ------------------------------------------------
+
+-- WHERE vs HAVING
+-- WHERE filters BEFORE grouping
+SELECT user_id, COUNT(*) 
+FROM tasks
+WHERE user_id = 1
+GROUP BY user_id;
+
+-- HAVING filters AFTER grouping
+SELECT user_id, COUNT(*) 
+FROM tasks
+GROUP BY user_id
+HAVING COUNT(*) > 1;
+
+-- =========================================================================================
