@@ -65,14 +65,20 @@ JOIN tasks ON users.id = tasks.user_id;
 INSERT INTO users (name, email) VALUES
 ('Jeken', 'jeken@gmail.com');
 
+-- ------------------------------------------------
+
 -- Read (SELECT)
 SELECT name
 FROM users;
+
+-- ------------------------------------------------
 
 -- Update (UPDATE)
 UPDATE users
 SET name = 'Jeken Maharjan'
 WHERE id = 1;
+
+-- ------------------------------------------------
 
 -- Delete (DELETE)
 DELETE FROM tasks
@@ -98,6 +104,8 @@ WHERE title = 'Practice Coding';
 SELECT * FROM tasks
 WHERE user_id = '2';
 
+-- ------------------------------------------------
+
 -- AND, OR, NOT
 SELECT * FROM users
 WHERE age > 20 AND age < 30;
@@ -117,6 +125,8 @@ WHERE age > 20 AND NOT name = 'Ram';
 SELECT * FROM users
 WHERE (age > 20 AND age < 30) OR name = 'Ram';
 
+-- ------------------------------------------------
+
 -- LIKE
 SELECT * FROM users
 WHERE name LIKE 'R%';
@@ -126,10 +136,14 @@ SELECT * FROM users
 WHERE name LIKE 'H%';
 -- Output: Hari
 
+-- ------------------------------------------------
+
 -- BETWEEN
 SELECT * FROM users
 WHERE age BETWEEN 10 AND 30
 AND NOT name = 'Ram';
+
+-- ------------------------------------------------
 
 -- IN
 -- Get users whose name is Ram or Hari
@@ -173,10 +187,14 @@ ORDER BY id ASC;
 SELECT * FROM tasks
 ORDER BY id DESC;
 
+-- ------------------------------------------------
+
 -- LIMIT
 -- Get First 2 Users
 SELECT * FROM users
 LIMIT 2;
+
+-- ------------------------------------------------
 
 -- Combine ORDER BY + LIMIT
 -- Get the top 1 task (largest id)
@@ -189,3 +207,54 @@ LIMIT 1;
 SELECT * FROM users
 ORDER BY id ASC
 LIMIT 1, 2;
+
+-- =========================================================================================
+
+-- 12. Aggregate Functions
+
+-- COUNT() -> Count Rows
+-- Count Total Users
+SELECT COUNT(*) AS total_users FROM users;
+
+-- Count Users with Email
+SELECT COUNT(email) AS users_with_email FROM users
+WHERE email IS NOT NULL;
+
+-- ------------------------------------------------
+
+-- SUM() -> Sum Values
+-- Total of User IDs
+SELECT SUM(id) AS total_id FROM users;
+
+-- ------------------------------------------------
+
+-- AVG() -> Average Value
+-- Average User ID
+SELECT AVG(id) AS average_id FROM users;
+
+-- ------------------------------------------------
+
+-- MAX(), MIN() -> Highest / Lowest Value
+-- Max and Min ID
+SELECT MAX(id) AS max_id, MIN(id) AS min_id
+FROM users;
+
+-- Max and Min task ID
+SELECT MAX(id) AS latest_task, MIN(id) AS first_task
+FROM tasks;
+
+-- ------------------------------------------------
+
+-- Combine with WHERE
+
+-- Count tasks of user_id = 1
+SELECT COUNT(*) AS user1_tasks
+FROM tasks
+WHERE user_id = 1;
+
+-- Average id of users whose name starts with 'R'
+SELECT AVG(id) AS avg_id
+FROM users
+WHERE name LIKE 'R%';
+
+-- =========================================================================================
