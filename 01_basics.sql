@@ -306,3 +306,9 @@ GROUP BY user_id
 HAVING COUNT(*) > 1;
 
 -- =========================================================================================
+
+-- 14. Subqueries
+
+SELECT name
+FROM users
+WHERE id IN (SELECT user_id FROM tasks);
