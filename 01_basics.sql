@@ -169,13 +169,13 @@ WHERE users.name IN ('Ram', 'Shyam');
 
 -- Sort Users by Name (by default its ASC -> Ascending order)
 SELECT * FROM users
-ORDER BY name
+ORDER BY name;
 
 SELECT * FROM users
-ORDER BY name ASC
+ORDER BY name ASC;
 
 SELECT * FROM users
-ORDER BY name DESC
+ORDER BY name DESC;
 
 -- Sort Tasks by ID (by default its ASC -> Ascending order)
 SELECT * FROM tasks
