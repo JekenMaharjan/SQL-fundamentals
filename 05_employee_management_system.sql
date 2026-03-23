@@ -24,6 +24,10 @@ INSERT INTO employees (name, age, salary, department) VALUES
 
 SELECT * FROM employees; -- Get all data from 'employees' table
 
-SELECT name, age, salary FROM employees; -- Get name, age and salary
+SELECT name, age, salary FROM employees; -- Get name, age and salary from 'employees' table
+SELECT name, age FROM employees; -- Get name and age from 'employees' table
+SELECT name FROM employees; -- Get name from 'employees' table
 
-SELECT * FROM employees WHERE department = 'IT'; -- Get all data from 'employees' table where department = 'IT'
+
+
+
