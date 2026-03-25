@@ -196,3 +196,47 @@ WHERE department = 'IT'
 ORDER BY salary DESC
 LIMIT 2;
 
+-- ===========================================================================================================================
+-- Combined: 'WHERE' + 'ORDER BY' + 'LIMIT' clauses
+-- ===========================================================================================================================
+
+-- Get top 2 highest-paid employees greater than 30000
+SELECT * 
+FROM employees
+WHERE salary > 30000
+ORDER BY salary DESC
+LIMIT 2;
+
+-- Get top 2 highest-paid employees from IT department
+SELECT *
+FROM employees
+WHERE department = 'IT'
+ORDER BY salary DESC
+LIMIT 2;
+
+-- Get the youngest employee in the Finance department
+SELECT *
+FROM employees
+WHERE department = 'Finance'
+ORDER BY age ASC
+LIMIT 1;
+
+-- Get employees earning more than 30000, sorted by salary
+SELECT *
+FROM employees
+WHERE salary > 30000
+ORDER BY salary DESC;
+
+-- Get the second highest-paid employee overall
+SELECT * 
+FROM employees
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+-- Get top 3 youngest employees earning less than 40000
+SELECT *
+FROM employees
+WHERE salary < 40000
+ORDER BY age ASC
+LIMIT 3;
+
