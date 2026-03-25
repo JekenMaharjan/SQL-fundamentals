@@ -46,7 +46,8 @@ SELECT * FROM employees;
 SELECT name, salary FROM employees;
 
 -- ===========================================================================================================================
--- Filter data using 'WHERE' clause
+-- Filtering data using 'WHERE' clause
+-- Filtering means selecting specific rows based on conditions
 -- ===========================================================================================================================
 
 -- Exact match
@@ -94,5 +95,31 @@ SELECT * FROM employees WHERE salary BETWEEN 25000 AND 40000;
 SELECT * FROM employees WHERE department <> 'HR';
 
 -- ===========================================================================================================================
+-- Sorting data using 'ORDER BY' clause
+-- 'ORDER BY' is used to sort data (ascending or descending)
+-- ===========================================================================================================================
+
+-- Get all employees sorted by salary (highest first)
+SELECT * FROM employees ORDER BY salary DESC;
+
+-- Get lowest age first / Get the youngest employee
+SELECT * FROM employees ORDER BY age ASC;
+
+-- Sort employees by name ascending
+SELECT * FROM employees ORDER BY name ASC;
+
+-- Sort by department then age
+-- First sort by department. Then sort by age inside each department
+SELECT * FROM employees ORDER BY department ASC, age ASC;
+
+-- Sort by department then highest salary
+-- First sort by department. Then sort by salary inside each department
+SELECT * FROM employees ORDER BY department ASC, salary DESC;
+
+-- Sort employees by department then name
+-- First sort by department. Then sort by name inside each department
+SELECT * FROM employees ORDER BY department ASC, name ASC;
+
+
 
 
