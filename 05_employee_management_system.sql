@@ -15,35 +15,38 @@ USE employee_management_system;
 -- ===========================================================================================================================
 
 CREATE TABLE employees (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    age INT,
-    salary INT,
-    department VARCHAR(100)
+    id          INT PRIMARY KEY AUTO_INCREMENT,
+    name        VARCHAR(100),
+    age         INT,
+    salary      INT,
+    department  VARCHAR(100)
 );
 
 -- ===========================================================================================================================
 -- Add all data into 'employees' table
 -- ===========================================================================================================================
 
-INSERT INTO employees (name, age, salary, department) VALUES
-('Ram', 25, 30000, 'IT'),
-('Sita', 30, 40000, 'HR'),
-('Hari', 22, 25000, 'IT'),
-('Gita', 28, 35000, 'Finance');
+INSERT INTO employees (name, age, salary, department) 
+VALUES
+    ('Ram', 25, 30000, 'IT'),
+    ('Sita', 30, 40000, 'HR'),
+    ('Hari', 22, 25000, 'IT'),
+    ('Gita', 28, 35000, 'Finance');
 
 -- ===========================================================================================================================
 -- Get all data from 'employees' table
 -- ===========================================================================================================================
 
-SELECT * FROM employees;
+SELECT * 
+FROM employees;
 
 -- ===========================================================================================================================
 -- Get specific columns data
 -- ===========================================================================================================================
 
 -- Get name and salary columns of all employees
-SELECT name, salary FROM employees;
+SELECT name, salary 
+FROM employees;
 
 -- ===========================================================================================================================
 -- Filtering data using 'WHERE' clause
@@ -52,47 +55,73 @@ SELECT name, salary FROM employees;
 
 -- Exact match
 -- Find employees whose name is 'Ram'
-SELECT * FROM employees WHERE name = 'Ram';
+SELECT * 
+FROM employees 
+WHERE name = 'Ram';
 
 -- Multiple conditions
 -- Find employees whose name is 'Ram' and older than 25
-SELECT * FROM employees WHERE name = 'Ram' AND age > 25;
+SELECT * 
+FROM employees 
+WHERE name = 'Ram' AND age > 25;
 
 -- OR condition
 -- Find employees whose name is 'Ram' or 'Sita'
-SELECT * FROM employees WHERE name = 'Ram' OR name = 'Sita';
+SELECT * 
+FROM employees 
+WHERE name = 'Ram' OR name = 'Sita';
 
 -- Pattern matching
 -- Find employees whose name starts with 'R'
-SELECT * FROM employees WHERE name LIKE 'R%';
+SELECT * 
+FROM employees 
+WHERE name LIKE 'R%';
 
 -- Range
 -- Find employees whose salary is between 20,000 to 50,000
-SELECT * FROM employees WHERE salary BETWEEN 20000 AND 50000;
+SELECT * 
+FROM employees 
+WHERE salary BETWEEN 20000 AND 50000;
 
 -- Find employees older than 30
-SELECT * FROM employees WHERE age > 30;
+SELECT * 
+FROM employees 
+WHERE age > 30;
 
 -- Find employees whose age is between 20 to 40
-SELECT * FROM employees WHERE age BETWEEN 20 AND 40;
+SELECT * 
+FROM employees 
+WHERE age BETWEEN 20 AND 40;
 
 -- Employees in IT or HR
-SELECT * FROM employees WHERE department IN ('IT', 'HR');
+SELECT * 
+FROM employees 
+WHERE department IN ('IT', 'HR');
 
 -- Get all employees whose salary is greater than 30000
-SELECT * FROM employees WHERE salary > 30000;
+SELECT * 
+FROM employees 
+WHERE salary > 30000;
 
 -- Get employees from IT department whose age is less than 25
-SELECT * FROM employees WHERE department = 'IT' AND age < '25';
+SELECT * 
+FROM employees 
+WHERE department = 'IT' AND age < '25';
 
 -- Get employees whose name starts with 'S'
-SELECT * FROM employees WHERE name LIKE 'S%';
+SELECT * 
+FROM employees 
+WHERE name LIKE 'S%';
 
 -- Get employees whose salary is between 25000 and 40000
-SELECT * FROM employees WHERE salary BETWEEN 25000 AND 40000;
+SELECT * 
+FROM employees 
+WHERE salary BETWEEN 25000 AND 40000;
 
 -- Get employees who are NOT in HR department
-SELECT * FROM employees WHERE department <> 'HR';
+SELECT * 
+FROM employees 
+WHERE department <> 'HR';
 
 -- ===========================================================================================================================
 -- Sorting data using 'ORDER BY' clause
@@ -100,26 +129,70 @@ SELECT * FROM employees WHERE department <> 'HR';
 -- ===========================================================================================================================
 
 -- Get all employees sorted by salary (highest first)
-SELECT * FROM employees ORDER BY salary DESC;
+SELECT * 
+FROM employees 
+ORDER BY salary DESC;
 
 -- Get lowest age first / Get the youngest employee
-SELECT * FROM employees ORDER BY age ASC;
+SELECT * 
+FROM employees 
+ORDER BY age ASC;
 
 -- Sort employees by name ascending
-SELECT * FROM employees ORDER BY name ASC;
+SELECT * 
+FROM employees 
+ORDER BY name ASC;
 
 -- Sort by department then age
 -- First sort by department. Then sort by age inside each department
-SELECT * FROM employees ORDER BY department ASC, age ASC;
+SELECT * 
+FROM employees 
+ORDER BY 
+    department ASC, 
+    age ASC;
 
 -- Sort by department then highest salary
 -- First sort by department. Then sort by salary inside each department
-SELECT * FROM employees ORDER BY department ASC, salary DESC;
+SELECT * 
+FROM employees 
+ORDER BY 
+    department ASC, 
+    salary DESC;
 
 -- Sort employees by department then name
 -- First sort by department. Then sort by name inside each department
-SELECT * FROM employees ORDER BY department ASC, name ASC;
+SELECT * 
+FROM employees 
+ORDER BY 
+    department ASC, 
+    name ASC;
 
+-- ===========================================================================================================================
+-- Limiting data using 'LIMIT' clause with 'ORDER BY' clause
+-- 'LIMIT' is used to restrict number of rows returned
+-- ===========================================================================================================================
 
+-- Get only first 2 rows employees
+SELECT * 
+FROM employees 
+LIMIT 2;
 
+-- Get Top 2 highest paid employees
+SELECT * 
+FROM employees 
+ORDER BY salary DESC 
+LIMIT 2;
+
+-- Get youngest 2 employees
+SELECT * 
+FROM employees 
+ORDER BY age ASC 
+LIMIT 2;
+
+-- Get top 2 highest paid employees from IT department
+SELECT * 
+FROM employees
+WHERE department = 'IT'
+ORDER BY salary DESC
+LIMIT 2;
 
