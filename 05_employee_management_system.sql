@@ -259,3 +259,36 @@ WHERE salary < 40000
 ORDER BY age ASC
 LIMIT 3;
 
+-- ===========================================================================================================================
+-- Aggregation Functions (COUNT(), SUM(), AVG(), MAX(), MIN())
+-- ===========================================================================================================================
+
+-- Count total employees (use 'COUNT()' to count rows)
+SELECT COUNT(*) AS total_employees
+FROM employees;
+
+-- Total salary of all employees (use 'SUM()' to add values)
+SELECT SUM(salary) AS total_salary
+FROM employees;
+
+-- Average salary of all employees (use 'AVG()' to average value)
+SELECT AVG(salary) AS avg_salary
+FROM employees;
+
+-- Maximum salary out of all employees (use 'MAX()' to get maximum)
+SELECT MAX(salary) AS highest_salary 
+FROM employees;
+
+-- Minimum age out of all employees (use 'MIN()' to get minimum)
+SELECT MIN(age) AS youngest_age 
+FROM employees;
+
+-- Count of employees with salary > 30000
+SELECT COUNT(*) AS employees_high_salary
+FROM employees
+WHERE salary > 30000;
+
+-- Average age of employees
+SELECT AVG(age) AS avg_age
+FROM employees;
+
