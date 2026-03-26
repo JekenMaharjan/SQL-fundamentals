@@ -407,4 +407,92 @@ FROM employees
 GROUP BY department
 HAVING COUNT(*) = 1;
 
+-- ===========================================================================================================================
+-- Advanced Filtering: IN, NOT IN, BETWEEN, NOT BETWEEN, EXISTS/NOT EXISTS & DISTINCT Operator
+-- ===========================================================================================================================
 
+-- Get employees from IT and HR departments
+SELECT * 
+FROM employees 
+WHERE department IN ('IT', 'HR');
+
+-- Get employees whose age is 22, 25, or 30
+SELECT * 
+FROM employees 
+WHERE age IN (22, 25, 30);
+
+-- Get employees whose salary is 25000 or 35000
+SELECT * 
+FROM employees 
+WHERE salary IN (25000, 35000);
+
+-- --------------------------------------------------------------------------
+
+-- Get employees NOT in IT department
+SELECT * 
+FROM employees 
+WHERE department NOT IN ('IT');
+
+-- Get employees NOT in HR and Finance
+SELECT * 
+FROM employees 
+WHERE department NOT IN ('HR', 'Finance');
+
+-- --------------------------------------------------------------------------
+
+-- Get employees with salary between 25000 and 35000
+SELECT * 
+FROM employees 
+WHERE salary BETWEEN 25000 AND 35000;
+
+-- Get employees aged between 23 and 30
+SELECT * 
+FROM employees 
+WHERE age BETWEEN 23 AND 30;
+
+-- Get employees NOT between salary range
+SELECT * 
+FROM employees 
+WHERE salary NOT BETWEEN 25000 AND 35000;
+
+-- --------------------------------------------------------------------------
+
+-- Get unique departments
+SELECT DISTINCT department
+FROM employees;
+
+-- Get unique salary values
+SELECT DISTINCT salary
+FROM employees;
+
+-- --------------------------------------------------------------------------
+
+-- For practicing EXISTS & NOT EXISTS Practice, create another table i.e.
+CREATE TABLE departments (
+    department  VARCHAR(100)
+);
+
+INSERT INTO departments (department)
+VALUES
+    ('IT'),
+    ('HR');
+
+-- Get employees if department exists
+SELECT * 
+FROM employees e
+WHERE EXISTS (
+    SELECT 1
+    FROM departments d 
+    WHERE e.department = d.department
+);
+
+-- NOT EXISTS Example
+SELECT * 
+FROM employees e
+WHERE NOT EXISTS (
+    SELECT 1 
+    FROM departments d 
+    WHERE e.department = d.department
+);
+
+-- ===========================================================================================================================
