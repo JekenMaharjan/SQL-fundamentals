@@ -292,3 +292,52 @@ WHERE salary > 30000;
 SELECT AVG(age) AS avg_age
 FROM employees;
 
+-- ===========================================================================================================================
+-- GROUP BY + Aggregation Functions
+-- ===========================================================================================================================
+
+-- Total salary per department
+SELECT department, SUM(salary) AS total_salary
+FROM employees
+GROUP BY department;
+
+-- Count of employees per department
+SELECT department, COUNT(*) AS employee_count
+FROM employees
+GROUP BY department;
+
+-- Average age per department
+SELECT department, AVG(age) AS avg_age
+FROM employees
+GROUP BY department;
+
+-- Maximum salary per department
+SELECT department, MAX(salary) AS max_salary
+FROM employees 
+GROUP BY department;
+
+-- Minimum age per department
+SELECT department, MIN(age) AS min_age
+FROM employees
+GROUP BY department;
+
+-- Maximum salary in IT department
+SELECT MAX(salary) AS max_salary
+FROM employees
+WHERE department = 'IT';
+
+-- Find the total salary of all employees whose salary is greater than 30000, grouped by department.
+SELECT department, SUM(salary) AS total_salary
+FROM employees 
+WHERE salary > 30000
+GROUP BY department;
+
+-- Find the department(s) with more than 2 employees.
+SELECT *
+FROM (
+    SELECT department, COUNT(*) AS total_employees
+    FROM employees
+    GROUP BY department
+) AS dept
+WHERE total_employees > 2;
+
