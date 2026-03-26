@@ -355,5 +355,56 @@ SELECT SUM(salary) AS total_salary
 FROM employees 
 HAVING SUM(salary) > 100000; 
 
+-- ===========================================================================================================================
+-- Aggregation Functions + GROUP BY + HAVING
+-- ===========================================================================================================================
+
+-- Departments with total salary greater than 40000
+SELECT department, SUM(salary) AS total_salary
+FROM employees 
+GROUP BY department
+HAVING SUM(salary) > 40000;
+
+-- Departments with more than 1 employee
+SELECT department, COUNT(*) AS employee_count
+FROM employees 
+GROUP BY department
+HAVING COUNT(*) > 1;
+
+-- Departments with average salary greater than 30000
+SELECT department, AVG(salary) AS avg_salary
+FROM employees 
+GROUP BY department
+HAVING AVG(salary) > 30000;
+
+-- Departments with minimum age less than 25
+SELECT department, MIN(age) AS min_age
+FROM employees 
+GROUP BY department
+HAVING MIN(age) < 25;
+
+-- Departments with maximum salary greater than 35000
+SELECT department, MAX(salary) AS max_salary
+FROM employees 
+GROUP BY department
+HAVING MAX(salary) > 35000;
+
+-- Departments where total salary is less than 50000
+SELECT department, SUM(salary) AS total_salary
+FROM employees 
+GROUP BY department
+HAVING SUM(salary) < 50000;
+
+-- Departments where average age greater than 24
+SELECT department, AVG(age) AS avg_age
+FROM employees 
+GROUP BY department
+HAVING AVG(age) > 24;
+
+-- Departments with exactly 1 employee
+SELECT department, COUNT(*) AS employee_count
+FROM employees 
+GROUP BY department
+HAVING COUNT(*) = 1;
 
 
