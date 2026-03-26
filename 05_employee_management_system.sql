@@ -260,7 +260,7 @@ ORDER BY age ASC
 LIMIT 3;
 
 -- ===========================================================================================================================
--- Aggregation Functions (COUNT(), SUM(), AVG(), MAX(), MIN())
+-- Aggregation Functions -> (COUNT(), SUM(), AVG(), MAX(), MIN())
 -- ===========================================================================================================================
 
 -- Count total employees (use 'COUNT()' to count rows)
@@ -293,7 +293,7 @@ SELECT AVG(age) AS avg_age
 FROM employees;
 
 -- ===========================================================================================================================
--- GROUP BY + Aggregation Functions
+-- Aggregation Functions + GROUP BY
 -- ===========================================================================================================================
 
 -- Total salary per department
@@ -340,4 +340,20 @@ FROM (
     GROUP BY department
 ) AS dept
 WHERE total_employees > 2;
+
+-- ===========================================================================================================================
+-- Aggregation Functions + HAVING
+-- ===========================================================================================================================
+
+-- Find total employees greater than 3
+SELECT COUNT(*) AS total_employees
+FROM employees 
+HAVING COUNT(*) > 3;
+
+-- Find total salary greater than 100000
+SELECT SUM(salary) AS total_salary
+FROM employees 
+HAVING SUM(salary) > 100000; 
+
+
 
