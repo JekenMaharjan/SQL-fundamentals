@@ -481,7 +481,7 @@ VALUES
 SELECT * 
 FROM employees e
 WHERE EXISTS (
-    SELECT 1
+    SELECT * 
     FROM departments d 
     WHERE e.department = d.department
 );
@@ -490,9 +490,134 @@ WHERE EXISTS (
 SELECT * 
 FROM employees e
 WHERE NOT EXISTS (
-    SELECT 1 
+    SELECT * 
     FROM departments d 
     WHERE e.department = d.department
 );
 
 -- ===========================================================================================================================
+-- Joins and Relationships: INNER JOIN, LEFT / RIGHT JOIN, FULL OUTER JOIN, SELF JOIN & CROSS JOIN
+-- ===========================================================================================================================
+
+-- First of all change the name of id = '2' from employees table into name = 'Sita'
+UPDATE employees 
+SET name = 'Sita'
+WHERE id = 2;
+
+-- Also, update departments table adding Finance and Marketing
+INSERT INTO departments (department)
+VALUES
+    ('Finance'),
+    ('Marketing');
+
+-- --------------------------------------------------------------------------
+
+-- INNER JOIN -> Returns only matching rows from both tables
+
+-- Show employees with their departments
+SELECT e.name, e.salary, d.department
+FROM employees e
+INNER JOIN departments d 
+ON e.department = d.department;
+
+-- Get employees only from IT department
+SELECT e.name, e.salary, d.department
+FROM employees e
+INNER JOIN departments d 
+ON e.department = d.department 
+WHERE d.department = 'IT';
+
+-- --------------------------------------------------------------------------
+
+-- LEFT JOIN -> Returns all rows from LEFT table Even if no match in RIGHT table
+
+-- Show all employees and their departments
+SELECT e.name, d.department
+FROM employees e 
+LEFT JOIN departments d 
+ON  e.department = d.department;
+
+-- Find employees without departments
+SELECT e.name, d.department
+FROM employees e
+LEFT JOIN departments d
+ON e.department = d.department
+WHERE d.department IS NULL; 
+
+-- --------------------------------------------------------------------------
+
+-- RIGHT JOIN -> Returns all rows from RIGHT table
+
+-- Show all departments and employees
+SELECT e.name, d.department
+FROM employees e 
+RIGHT JOIN departments d 
+ON e.department = d.department;
+
+-- Find departments with no employees
+SELECT d.department 
+FROM employees e 
+RIGHT JOIN departments d 
+ON e.department = d.department
+WHERE e.name IS NULL;
+
+-- --------------------------------------------------------------------------
+
+-- FULL OUTER JOIN -> MySQL does NOT support FULL OUTER JOIN directly
+
+SELECT e.name, d.department 
+FROM employees e 
+LEFT JOIN departments d 
+ON e.department = d.department
+
+UNION
+
+SELECT e.name, d.department
+FROM employees e
+RIGHT JOIN departments d 
+ON e.department = d.department;
+
+-- --------------------------------------------------------------------------
+
+-- SELF JOIN -> Joining a table with itself
+
+-- Let's add manager
+-- Add column:
+ALTER TABLE employees ADD manager_id INT;
+
+-- Update employees table for id = 2
+UPDATE employees 
+SET manager_id = 1 
+WHERE id = 2;
+
+-- Update employees table for id = 3
+UPDATE employees 
+SET manager_id = 1 
+WHERE id = 3;
+
+-- Update employees table for id = 4
+UPDATE employees 
+SET manager_id = 2 
+WHERE id = 4;
+
+-- Show employee and manager
+SELECT e.name AS employee, m.name AS manager 
+FROM employees e 
+LEFT JOIN employees m 
+ON e.manager_id = m.id;
+
+-- --------------------------------------------------------------------------
+
+-- CROSS JOIN -> Combines every row with every row
+
+SELECT e.name, d.department
+FROM employees e
+CROSS JOIN departments d;
+
+-- ===========================================================================================================================
+-- 
+-- ===========================================================================================================================
+
+
+
+
