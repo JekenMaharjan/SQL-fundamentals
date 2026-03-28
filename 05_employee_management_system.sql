@@ -408,8 +408,10 @@ GROUP BY department
 HAVING COUNT(*) = 1;
 
 -- ===========================================================================================================================
--- Advanced Filtering: IN, NOT IN, BETWEEN, NOT BETWEEN, EXISTS/NOT EXISTS & DISTINCT Operator
+-- Advanced Filtering: IN, NOT IN, BETWEEN, NOT BETWEEN, EXISTS / NOT EXISTS & DISTINCT Operator
 -- ===========================================================================================================================
+
+-- IN Operator
 
 -- Get employees from IT and HR departments
 SELECT * 
@@ -428,6 +430,8 @@ WHERE salary IN (25000, 35000);
 
 -- --------------------------------------------------------------------------
 
+-- NOT IN Operator
+
 -- Get employees NOT in IT department
 SELECT * 
 FROM employees 
@@ -439,6 +443,8 @@ FROM employees
 WHERE department NOT IN ('HR', 'Finance');
 
 -- --------------------------------------------------------------------------
+
+-- BETWEEN & NOT BETWEEN Operators
 
 -- Get employees with salary between 25000 and 35000
 SELECT * 
@@ -457,6 +463,8 @@ WHERE salary NOT BETWEEN 25000 AND 35000;
 
 -- --------------------------------------------------------------------------
 
+-- DISTINCT Operator
+
 -- Get unique departments
 SELECT DISTINCT department
 FROM employees;
@@ -466,6 +474,8 @@ SELECT DISTINCT salary
 FROM employees;
 
 -- --------------------------------------------------------------------------
+
+-- EXISTS / NOT EXISTS Operator
 
 -- For practicing EXISTS & NOT EXISTS Practice, create another table i.e.
 CREATE TABLE departments (
@@ -615,9 +625,115 @@ FROM employees e
 CROSS JOIN departments d;
 
 -- ===========================================================================================================================
--- 
+-- Subqueries: WHERE, IN, SELECT (Scalar Subquery), FROM, Correlated Subquery, Nested Subqueries
 -- ===========================================================================================================================
 
+-- Subquery in 'WHERE'
 
+-- Get employees from IT department (using subquery)
+SELECT * 
+FROM employees 
+WHERE department = (
+    SELECT department 
+    FROM departments 
+    WHERE department = 'IT'
+);
+
+-- Get employees with salary greater than average salary
+SELECT * 
+FROM employees 
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees 
+);
+
+-- Get employees with highest salary
+SELECT * 
+FROM employees 
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employees 
+);
+
+-- --------------------------------------------------------------------------
+
+-- Subquery in 'IN'
+
+-- Employees from departments that exist
+SELECT * 
+FROM employees 
+WHERE department IN (
+    SELECT department 
+    FROM departments
+);
+
+-- Employees not in departments table
+SELECT * 
+FROM employees 
+WHERE department NOT IN (
+    SELECT department 
+    FROM departments
+);
+
+-- --------------------------------------------------------------------------
+
+-- Subquery in 'SELECT' (Scalar Subquery)
+
+-- Show employees with average salary
+SELECT 
+name,
+salary,
+(SELECT AVG(salary) FROM employees) AS avg_salary
+FROM employees;
+
+-- This is called Scalar Subquery. Because it returns single value.
+
+-- --------------------------------------------------------------------------
+
+-- Subquery in 'FROM'
+
+-- Use subquery as table
+SELECT * 
+FROM (
+    SELECT name, salary 
+    FROM employees
+) AS temp;
+-- This is called: Derived Table
+
+-- Get employees with salary greater than average (Using FROM)
+SELECT *
+FROM employees,
+(
+    SELECT AVG(salary) AS avg_salary
+    FROM employees
+) AS avg_table
+WHERE employees.salary > avg_table.avg_salary;
+
+-- --------------------------------------------------------------------------
+
+-- Correlated Subquery
+
+-- Employees earning more than department average
+SELECT *
+FROM employees e
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+    WHERE department = e.department
+);
+
+-- --------------------------------------------------------------------------
+
+-- Nested Subqueries: Subquery inside another subquery
+
+-- Get employee with 2nd highest salary
+SELECT MAX(salary)
+FROM employees
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM employees
+);
+
+-- ===========================================================================================================================
 
 
