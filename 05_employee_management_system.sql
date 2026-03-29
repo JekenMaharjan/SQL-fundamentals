@@ -863,5 +863,11 @@ SELECT DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
 -- DATEDIFF() -> Difference Between Dates
 SELECT DATEDIFF('2026-03-30', '2026-03-25');
 
--- ===========================================================================================================================
+-- ===================================================================================================================================
+-- Indexing & Performance: Primary Key, Unique Key, Indexes, Foreign Key constraints & Understanding EXPLAIN for query optimization
+-- ===================================================================================================================================
+
+-- This Lesson is performed in 'Simple Online Shop System' Project...
+-- It's in '06_simple_online_shop_system'.
+
 
