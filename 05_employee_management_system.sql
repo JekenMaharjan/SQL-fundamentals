@@ -735,5 +735,34 @@ WHERE salary < (
 );
 
 -- ===========================================================================================================================
+-- Set Operations: UNION/UNION ALL & INTERSECT/EXCEPT
+-- ===========================================================================================================================
 
+-- UNION -> Combines results from multiple SELECT queries and removes duplicates
+SELECT department FROM employees
+UNION
+SELECT department FROM departments;
+
+-- --------------------------------------------------------------------------
+
+-- UNION ALL -> Combines results but keeps duplicates (faster than UNION)
+SELECT department FROM employees
+UNION ALL
+SELECT department FROM departments;
+
+-- --------------------------------------------------------------------------
+
+-- INTERSECT -> Returns common rows between two queries
+SELECT department FROM employees
+INTERSECT
+SELECT department FROM departments;
+
+-- --------------------------------------------------------------------------
+
+-- EXCEPT -> Returns rows from first query not in second
+SELECT department FROM employees
+EXCEPT
+SELECT department FROM departments;
+
+-- ===========================================================================================================================
 
