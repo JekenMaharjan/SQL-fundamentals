@@ -765,4 +765,60 @@ EXCEPT
 SELECT department FROM departments;
 
 -- ===========================================================================================================================
+-- String Functions: CONCAT(), LENGTH(), SUBSTRING(), REPLACE(), TRIM(), UPPER() & LOWER()
+-- ===========================================================================================================================
+
+-- CONCAT() -> Used to join text together
+SELECT CONCAT(name, ' works in ', department) AS info
+FROM employees;
+
+-- --------------------------------------------------------------------------
+
+-- LENGTH() -> Count Characters
+SELECT name, LENGTH(name) AS name_length
+FROM employees;
+
+-- --------------------------------------------------------------------------
+
+-- SUBSTRING() -> Extract Part of String
+SELECT name, SUBSTRING(name, 1, 3) AS short_name
+FROM employees;
+-- 1 = start position, 3 = number of characters
+
+-- --------------------------------------------------------------------------
+
+-- REPLACE() -> Replace Text
+SELECT name, REPLACE(name, 'a', '@') AS modified_name
+FROM employees;
+
+-- --------------------------------------------------------------------------
+
+-- TRIM() -> Remove Spaces
+SELECT TRIM('   Hello World   ') AS result;
+
+-- --------------------------------------------------------------------------
+
+-- UPPER() -> Convert to Uppercase
+SELECT UPPER(name) FROM employees;
+
+-- --------------------------------------------------------------------------
+
+-- LOWER() -> Convert to Lowercase
+SELECT LOWER(name) FROM employees;
+
+-- --------------------------------------------------------------------------
+
+-- Show employee name and department combined like: Ram Sharma - IT
+SELECT CONCAT(name, ' - ', department) AS info
+FROM employees;
+
+-- --------------------------------------------------------------------------
+
+-- Show first 2 characters of employee name
+SELECT SUBSTRING(name, 1, 2) AS first_2_letter
+FROM employees;
+
+-- ===========================================================================================================================
+
+
 
