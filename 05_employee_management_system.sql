@@ -819,6 +819,49 @@ SELECT SUBSTRING(name, 1, 2) AS first_2_letter
 FROM employees;
 
 -- ===========================================================================================================================
+-- Date & Time Functions: NOW(), CURDATE(), CURTIME(), DATE_ADD(), DATE_SUB() & DATEDIFF()
+-- ===========================================================================================================================
 
+-- NOW() -> Current Date & Time
+SELECT NOW() AS current_datetime;
 
+-- --------------------------------------------------------------------------
+
+-- CURDATE() -> Current Date Only
+SELECT CURDATE() AS today_date;
+
+-- --------------------------------------------------------------------------
+
+-- CURTIME() -> Current Time Only
+SELECT CURTIME() AS cur_time;
+
+-- --------------------------------------------------------------------------
+
+-- DATE_ADD() -> Add Date (Add days/months/years)
+-- DATE_ADD(date, INTERVAL value unit)
+SELECT DATE_ADD('2026-03-29', INTERVAL 5 DAY); -- 2026-04-03
+
+-- Add 7 days
+SELECT DATE_ADD(CURDATE(), INTERVAL 7 DAY);
+
+-- Add 1 month
+SELECT DATE_ADD(CURDATE(), INTERVAL 1 MONTH);
+
+-- --------------------------------------------------------------------------
+
+-- DATE_SUB() -> Subtract Date (Subtract days/months/years)
+SELECT DATE_SUB('2026-03-29', INTERVAL 5 DAY);
+
+-- Subtract 10 days
+SELECT DATE_SUB(CURDATE(), INTERVAL 10 DAY);
+
+-- Subtract 1 year
+SELECT DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+
+-- --------------------------------------------------------------------------
+
+-- DATEDIFF() -> Difference Between Dates
+SELECT DATEDIFF('2026-03-30', '2026-03-25');
+
+-- ===========================================================================================================================
 
