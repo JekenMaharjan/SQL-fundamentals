@@ -155,3 +155,138 @@ ON c.id = o.customer_id;
 -- Index → Faster query
 -- Foreign Key → Connect tables
 -- EXPLAIN → Check performance
+
+-- ===================================================================================================================================
+-- Views, Stored Procedures, and Triggers
+-- ===================================================================================================================================
+
+-- Views (Virtual Table):
+-- View = Saved SQL Query
+-- Instead of writing JOIN again and again, create a view.
+
+-- Create View
+CREATE VIEW customer_orders AS
+SELECT c.name, o.product_name, o.price
+FROM customers c
+JOIN orders o
+ON c.id = o.customer_id;
+
+-- Now use like a table:
+SELECT * FROM customer_orders;
+
+-- Why Views?
+-- Views make:
+-- Queries simple
+-- Code clean
+-- Reusable queries
+
+-- Practice Tasks:
+-- Show expensive products
+SELECT *
+FROM customer_orders
+WHERE price > 2000;
+
+-- Most expensive product
+SELECT product_name, price
+FROM customer_orders
+ORDER BY price DESC
+LIMIT 1;
+
+-- Show Views
+SHOW FULL TABLES WHERE TABLE_TYPE = 'VIEW';
+
+-- Delete View
+DROP VIEW customer_orders;
+
+-- --------------------------------------------------------------------------------
+
+-- Stored Procedures:
+-- Stored Procedure = Saved SQL Function
+-- You write once → reuse anytime
+
+-- Create Stored Procedure (MySQL requires delimiter)
+DELIMITER //
+
+CREATE PROCEDURE GetOrders()
+BEGIN
+    SELECT * FROM orders;
+END //
+
+DELIMITER ;
+
+-- Run Procedure
+CALL GetOrders();
+
+-- Procedure With Parameter
+DELIMITER //
+
+CREATE PROCEDURE GetCustomerOrders(IN customerId INT)
+BEGIN
+    SELECT *
+    FROM orders
+    WHERE customer_id = customerId;
+END //
+
+DELIMITER ;
+
+-- Run Procedure With Parameter
+CALL GetCustomerOrders(1);
+
+-- Show Procedures
+SHOW PROCEDURE STATUS;
+
+-- Delete Procedure
+DROP PROCEDURE GetOrders;
+DROP PROCEDURE GetCustomerOrders;
+
+-- --------------------------------------------------------------------------------
+
+-- Triggers:
+-- Trigger = Automatic Action
+-- Runs automatically when:
+-- 1. INSERT
+-- 2. UPDATE
+-- 3. DELETE
+
+-- Create Log Table
+CREATE TABLE order_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message VARCHAR(100)
+);
+
+-- Create Trigger:
+-- Trigger runs after insert,
+DELIMITER //
+
+CREATE TRIGGER order_insert_trigger
+AFTER INSERT ON orders
+FOR EACH ROW
+BEGIN
+    INSERT INTO order_logs (message)
+    VALUES ('New order Added!');
+END //
+
+DELIMITER ;
+
+-- Test Trigger:
+-- Insert new order,
+INSERT INTO orders (product_name, price, customer_id)
+VALUES ('Phone', 30000, 2);
+
+-- Check logs
+SELECT * FROM order_logs;
+-- Trigger worked automatically
+
+-- Show Triggers:
+SHOW TRIGGERS;
+
+-- Delete Trigger:
+DROP TRIGGER order_insert_trigger;
+
+-- Summary:
+-- Views → Saved SELECT query
+-- Stored Procedure → Saved SQL function
+-- Trigger → Automatic SQL action
+
+-- ===================================================================================================================================
+
