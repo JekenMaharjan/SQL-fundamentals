@@ -289,4 +289,210 @@ DROP TRIGGER order_insert_trigger;
 -- Trigger → Automatic SQL action
 
 -- ===================================================================================================================================
+-- Transactions & Security
+-- ===================================================================================================================================
+
+-- Transactions:
+-- Transaction = Group of queries executed together
+-- Example:
+-- 1. Transfer money
+-- 2. Place order
+-- 3. Payment system
+
+-- If one fails → rollback everything
+
+-- ------------------------------------------
+
+-- Create accounts table
+CREATE TABLE accounts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    balance INT
+);
+
+-- Insert data into accounts
+INSERT INTO accounts (name, balance)
+VALUES
+('Ram', 50000),
+('Hari', 30000);
+
+-- ------------------------------------------
+
+-- START TRANSACTION:
+-- Start transaction,
+START TRANSACTION;
+
+-- Example: Transfer 5000 from Ram to Hari
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = balance - 5000
+WHERE name = 'Ram';
+
+UPDATE accounts
+SET balance = balance + 5000
+WHERE name = 'Hari';
+
+-- ------------------------------------------
+
+-- COMMIT (Save Changes):
+COMMIT;
+-- Now changes are permanent.
+
+-- ------------------------------------------
+
+-- ROLLBACK (Undo Changes)
+ROLLBACK;
+-- Undo all changes.
+
+-- ------------------------------------------
+
+-- Full Example:
+START TRANSACTION;
+
+UPDATE accounts 
+SET balance = balance - 5000 
+WHERE name = 'Ram';
+
+UPDATE accounts 
+SET balance = balance + 5000 
+WHERE name = 'Hari';
+
+COMMIT;
+
+-- ------------------------------------------
+
+-- Practice Task:
+
+-- Try rollback:
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = balance - 10000
+WHERE name = 'Ram';
+
+ROLLBACK;
+
+-- Check:
+SELECT * FROM accounts;
+
+-- Balance remains unchanged.
+
+-- ------------------------------------------
+
+-- --------------------------
+--                          |
+-- Very Important Rule      |
+--                          |
+-- Use transaction when:    |
+-- 1. Banking               |
+-- 2. Orders                |
+-- 3. Payments              |
+-- 4. Inventory updates     |
+--                          |
+-- --------------------------
+
+-- --------------------------------------------------------------------------------------
+
+-- User Management & Privileges:
+
+-- Create new database user
+CREATE USER 'shop_user'@'localhost' 
+IDENTIFIED BY 'password123';
+
+-- ------------------------------------------
+
+-- Grant Permissions:
+-- Give access to database,
+GRANT ALL PRIVILEGES 
+ON shop_db.* 
+TO 'shop_user'@'localhost';
+
+-- ------------------------------------------
+
+-- Apply Changes:
+FLUSH PRIVILEGES;
+
+-- ------------------------------------------
+
+-- Show Users
+SELECT user, host 
+FROM mysql.user;
+
+-- ------------------------------------------
+
+-- Show User Permissions
+SHOW GRANTS FOR 'shop_user'@'localhost';
+
+-- ------------------------------------------
+
+-- Remove Permission
+REVOKE ALL PRIVILEGES 
+ON shop_db.* 
+FROM 'shop_user'@'localhost';
+
+-- ------------------------------------------
+
+-- Delete User
+DROP USER 'shop_user'@'localhost';
+
+-- --------------------------------------------------------------------------------------
+
+-- Backup Database:
+-- Backup using command line
+
+-- Backup database:
+mysqldump -u root -p shop_db > backup.sql
+
+-- After running:
+-- 1. Enter password
+-- 2. backup.sql created
+
+-- ------------------------------------------
+
+-- Backup Single Table
+mysqldump -u root -p shop_db customers > customers_backup.sql
+
+-- Restore Database
+-- Restore backup:
+mysql -u root -p shop_db < backup.sql
+
+-- Restore Single Table
+mysql -u root -p shop_db < customers_backup.sql
+
+-- MySQL Workbench:
+-- 1. Go to Server
+-- 2. Click Data Export
+-- 3. Select database
+-- 4. Click Export
+
+-- Restore:
+-- 1. Go to Server
+-- 2. Click Data Import
+-- 3. Select backup file
+-- 4. Import
+
+-- ------------------------------------------
+
+-- Most Important Commands
+
+-- Transactions:
+START TRANSACTION;
+COMMIT;
+ROLLBACK;
+
+-- User Management:
+CREATE USER
+GRANT
+REVOKE
+DROP USER
+
+-- Backup:
+mysqldump
+
+-- ===================================================================================================================================
+
+
+
+
 
