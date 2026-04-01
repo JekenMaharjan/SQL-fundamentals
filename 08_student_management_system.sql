@@ -85,24 +85,81 @@ VALUES
 
 -- ====================================================================================
 
--- Practice Queries:
+-- PRACTICE QUERIES:
 
+-- ------------------------------------------------------------
 -- 1. Show All Students
-SELECT * FROM students;
+-- ------------------------------------------------------------
 
+-- Stored Procedure -> 'proc_get_all_students'
+DELIMITER //
+
+CREATE PROCEDURE proc_get_all_students()
+BEGIN
+    SELECT * FROM students;
+END //
+
+DELIMITER ;
+
+CALL proc_get_all_students();
+
+-- ------------------------------------------------------------
 -- 2. Students Older Than 20
-SELECT * FROM students
-WHERE age > 20;
+-- ------------------------------------------------------------
 
+-- Stored Procedure -> 'proc_students_over_20'
+DELIMITER //
+
+CREATE PROCEDURE proc_students_over_20()
+BEGIN
+    SELECT * FROM students
+    WHERE age > 20;
+END //
+
+DELIMITER ;
+
+CALL proc_students_over_20();
+
+-- ------------------------------------------------------------
 -- 3. Sort Students by Name
-SELECT * FROM students
-ORDER BY name;
+-- ------------------------------------------------------------
 
+-- Stored Procedure -> 'proc_sort_students_by_name_asc'
+DELIMITER //
+
+CREATE PROCEDURE proc_sort_students_by_name_asc()
+BEGIN
+    SELECT * FROM students
+    ORDER BY name ASC;
+END //
+
+DELIMITER ;
+
+CALL proc_sort_students_by_name_asc();
+
+-- ------------------------------------------------------------
 -- 4. Count Students
-SELECT COUNT(*) AS student_count
-FROM students;
+-- ------------------------------------------------------------
 
+-- Stored Procedure -> 'proc_total_students'
+DELIMITER //
+
+CREATE PROCEDURE proc_total_students()
+BEGIN
+    SELECT COUNT(*) AS student_count
+    FROM students;
+END //
+
+DELIMITER ;
+
+CALL proc_total_students();
+
+-- ------------------------------------------------------------
 -- 5. Join Students + Courses
+-- ------------------------------------------------------------
+
+-- View -> 'view_student_courses'
+CREATE VIEW view_student_courses AS
 SELECT s.name, c.course_name
 FROM students s
 JOIN enrollments e
@@ -110,7 +167,24 @@ ON s.student_id = e.student_id
 JOIN courses c
 ON e.course_id = c.course_id;
 
+-- Stored Procedure -> 'proc_student_courses'
+DELIMITER //
+
+CREATE PROCEDURE proc_student_courses()
+BEGIN
+    SELECT * FROM view_student_courses;
+END //
+
+DELIMITER ;
+
+CALL proc_student_courses();
+
+-- ------------------------------------------------------------
 -- 6. Show Students With Marks
+-- ------------------------------------------------------------
+
+-- View -> 'view_student_marks'
+CREATE VIEW view_student_marks AS
 SELECT s.name, c.course_name, m.marks
 FROM students s
 JOIN marks m
@@ -118,20 +192,71 @@ ON s.student_id = m.student_id
 JOIN courses c
 ON m.course_id = c.course_id;
 
+-- Stored Procedure -> 'proc_student_marks'
+DELIMITER //
+
+CREATE PROCEDURE proc_student_marks()
+BEGIN
+    SELECT * FROM view_student_marks;
+END //
+
+DELIMITER ;
+
+CALL proc_student_marks();
+
+-- ------------------------------------------------------------
 -- 7. Average Marks
-SELECT AVG(marks) AS avg_marks
-FROM marks;
+-- ------------------------------------------------------------
 
+-- Stored Procedure -> 'proc_avg_marks'
+DELIMITER //
+
+CREATE PROCEDURE proc_avg_marks()
+BEGIN
+    SELECT AVG(marks) AS avg_marks
+    FROM marks;
+END //
+
+DELIMITER ;
+
+CALL proc_avg_marks;
+
+-- ------------------------------------------------------------
 -- 8. Highest Marks
-SELECT * FROM marks
-ORDER BY marks DESC
-LIMIT 1;
+-- ------------------------------------------------------------
 
+-- Stored Procedure -> 'proc_highest_marks'
+DELIMITER //
+
+CREATE PROCEDURE proc_highest_marks()
+BEGIN
+    SELECT * FROM marks
+    ORDER BY marks DESC
+    LIMIT 1;
+END //
+
+DELIMITER ;
+
+CALL proc_highest_marks;
+
+-- ------------------------------------------------------------
 -- 9. Students With Marks Greater Than Average
-SELECT * FROM marks
-WHERE marks > (
-    SELECT AVG(marks) FROM marks
-);
+-- ------------------------------------------------------------
+
+-- Stored Procedure -> 'proc_students_above_average_marks'
+DELIMITER //
+
+CREATE PROCEDURE proc_students_above_average_marks()
+BEGIN
+    SELECT * FROM marks
+    WHERE marks > (
+        SELECT AVG(marks) FROM marks
+    );
+END //
+
+DELIMITER ;
+
+CALL proc_students_above_average_marks;
 
 -- ====================================================================================
 
