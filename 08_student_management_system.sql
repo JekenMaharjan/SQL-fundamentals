@@ -49,12 +49,30 @@ CREATE TABLE marks (
 -- ====================================================================================
 
 -- Insert Sample Data (Students, Courses, Teachers, Enrollments, Marks)
-INSERT INTO students (name, age, gender, email, admission_date)
-VALUES
-('Ram', 20, 'Male', 'ram@gmail.com', '2024-01-10'),
-('Sita', 21, 'Female', 'sita@gmail.com', '2024-02-11'),
-('Hari', 22, 'Male', 'hari@gmail.com', '2024-03-15'),
-('Gita', 20, 'Female', 'gita@gmail.com', '2024-04-20');
+
+DELIMITER //
+
+CREATE PROCEDURE proc_add_student(
+    IN studentName VARCHAR(100),
+    IN studentAge INT,
+    IN studentGender VARCHAR(10),
+    IN studentEmail VARCHAR(100),
+    IN admissionDate DATE
+)
+BEGIN
+    INSERT INTO students (name, age, gender, email, admission_date)
+    VALUES (studentName, studentAge, studentGender, studentEmail, admissionDate);
+END //
+
+DELIMITER ;
+
+CALL proc_add_student('Ram', 20, 'Male', 'ram@gmail.com', '2024-01-10');
+CALL proc_add_student('Sita', 21, 'Female', 'sita@gmail.com', '2024-02-11');
+CALL proc_add_student('Hari', 22, 'Male', 'hari@gmail.com', '2024-03-15');
+CALL proc_add_student('Gita', 20, 'Female', 'gita@gmail.com', '2024-04-20');
+CALL proc_add_student('Gopal', 23, 'Male', 'gopal@gmail.com', '2024-06-10');
+
+-- -----------------------------------------------------------------------------------
 
 INSERT INTO courses (course_name, course_duration)
 VALUES
